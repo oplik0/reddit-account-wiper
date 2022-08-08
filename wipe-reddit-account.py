@@ -18,7 +18,7 @@ def main():
     user = reddit.user.me()
 
     # get all comments and posts for the currently logged in user
-    for content in chain(user.submissions(limit=None), user.comments(limit=None)):
+    for content in chain(user.submissions.new(limit=None), user.comments.new(limit=None)):
         # delete the content
         content.delete()
 
