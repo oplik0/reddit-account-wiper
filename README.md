@@ -36,7 +36,7 @@ The `pyproject.toml` and `poetry.lock` files are from a tool called [Poetry](htt
 
 ![Actions warning](https://user-images.githubusercontent.com/25460763/183405553-1ce872f0-7790-466a-a115-7e3f4bdcf0dc.png)
 
-6. And it'd done - the workflow will now run at 00:00 UTC on every Sunday. You can also trigger it manually by going to Actions, selecting `.github/workflows/wipe_reddit_account.yml` and using the `Run workflow` button:
+6. And it'd done - the workflow will now run at 00:00 UTC on every Monday. You can also trigger it manually by going to Actions, selecting `.github/workflows/wipe_reddit_account.yml` and using the `Run workflow` button:
 
 ![Running the workflow manually](https://user-images.githubusercontent.com/25460763/183406938-af2f4c77-9f8b-44bb-bf15-6943e120d1e5.png)
 
@@ -46,13 +46,13 @@ The workflow runs using the `cron` trigger in the GitHub Actions workflow. You c
 ```yaml
 on:
   schedule:
-    - cron: "0 0 * * SUN"
+    - cron: "0 0 * * MON"
 ```
 
 If you aren't familiar with cron's notation (and even if you are), you can use a tool like [Crontab.guru](https://crontab.guru/) to create the expression.
-For example, `33 3 * * 1` will run the script at 03:33 every monday and result in this configuration:
+For example, `33 3 * * 0` (weekdays are numbered 0-6, with 0 being sunday. You can also just use short names as above) will run the script at 03:33 every Sunday and result in this configuration:
 ```yaml
 on:
   schedule:
-    - cron: "33 3 * * 1"
+    - cron: "33 3 * * 0"
 ```
