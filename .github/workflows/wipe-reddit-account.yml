@@ -1,0 +1,31 @@
+on:
+  schedule:
+    - cron: "0 0 * * SUN"
+  workflow_dispatch:
+jobs:
+  wipe-account:
+    runs-on: ubuntu-latest
+    steps:
+      # this ensures the code is in the workspace
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+      # poetry is used for installing dependencies
+      - name: Install poetry
+        run: pipx install poetry
+      # ensures this is the version of Python we have, and adds a cache to make installs faster
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "poetry"
+      - name: Install dependencies
+        run: poetry install
+      # runs the script with environment variables set to our secrets from the repository
+      # their values won't be displayed in any output
+      - name: Wipe Reddit Account
+        run: poetry run python wipe-reddit-account.py
+        env:
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}

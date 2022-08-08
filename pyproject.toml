@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "reddit-account-wiper"
+version = "0.1.0"
+description = "Wipes all content from your reddit account"
+authors = ["opliko"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+praw = "^7.6.0"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry.scripts]
+wipe-reddit-account = "wipe-reddit-account:main"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
