@@ -1,18 +1,24 @@
 on:
   schedule:
+    # this currently run at midnight every Monday, you can easily change this.
+    # https://crontab.guru/ is useful for generating the cron expression
     - cron: "0 0 * * MON"
+  # used to run the workflow manually
   workflow_dispatch:
 jobs:
+  # our main and only job :)
   wipe_reddit_account:
+    # Ubuntu is the easiest to use here and uses least resources if you wanted to run it in a private repository
+    # (Public repositories can run Actions entirely for free, private have a time quota)
     runs-on: ubuntu-latest
     steps:
       # this ensures the code is in the workspace
       - name: Checkout the repo
         uses: actions/checkout@v3
-      # poetry is used for installing dependencies
+      # poetry is used for installing dependencies, in this case just `praw`, the Reddit API wrapper
       - name: Install poetry
         run: pipx install poetry
-      # ensures this is the version of Python we have, and adds a cache to make installs faster
+      # ensures the correct version of python is installed and adds a dependency cache to make future installs faster
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -24,6 +30,7 @@ jobs:
       # their values won't be displayed in any output
       - name: Wipe Reddit Account
         run: poetry run python wipe_reddit_account.py
+        # sets the environment variables to the secret values from the repository
         env:
           REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
           REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
