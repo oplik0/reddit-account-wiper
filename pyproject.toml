@@ -11,9 +11,6 @@ praw = "^7.6.0"
 
 [tool.poetry.dev-dependencies]
 
-[tool.poetry.scripts]
-wipe-reddit-account = "wipe-reddit-account:main"
-
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

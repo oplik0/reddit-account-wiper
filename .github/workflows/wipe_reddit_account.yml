@@ -3,7 +3,7 @@ on:
     - cron: "0 0 * * SUN"
   workflow_dispatch:
 jobs:
-  wipe-account:
+  wipe_reddit_account:
     runs-on: ubuntu-latest
     steps:
       # this ensures the code is in the workspace
@@ -23,7 +23,7 @@ jobs:
       # runs the script with environment variables set to our secrets from the repository
       # their values won't be displayed in any output
       - name: Wipe Reddit Account
-        run: poetry run python wipe-reddit-account.py
+        run: poetry run python wipe_reddit_account.py
         env:
           REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
           REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
